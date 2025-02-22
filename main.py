@@ -14,13 +14,17 @@ ml_models = {}
 
 @asynccontextmanager
 async def liefspan(app: FastAPI):
+    print("[+] Start Loading models [+]")
+
     text_m_obj = textModel()
     text_m_obj.load_pipeline()
     ml_models["text_m_obj"] = text_m_obj
-
+    print("loaded text_m_obj")
+    
     audio_m_obj = audioModel()
     audio_m_obj.load_audio_model()
     ml_models["audio_m_obj"] = audio_m_obj
+    print("loaded audio_m_obj")
 
     yield
     ml_models.clear()
