@@ -9,6 +9,7 @@ WORKDIR /app
 COPY . .
 
 RUN pip install pipenv
+RUN pip install torch
 
 RUN pipenv install --system --deploy
 
