@@ -14,7 +14,7 @@ ml_models = {}
 
 @asynccontextmanager
 async def liefspan(app: FastAPI):
-    print("[+] Start Loading models [+]")
+    print("[+] Start Loading models... [+]")
 
     text_m_obj = textModel()
     text_m_obj.load_pipeline()
