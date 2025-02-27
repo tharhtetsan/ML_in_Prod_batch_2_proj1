@@ -23,8 +23,11 @@ jobs:
 
 
 
-      - name: Install pipenv
-        run: pip install pipenv torch
+      - name: Install dependencies
+        run: |
+            apt-get update && apt-get install -y python3-pip
+            pip install pipenv
+            pipenv install --dev
 
 
 
