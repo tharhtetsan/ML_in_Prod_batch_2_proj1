@@ -24,15 +24,18 @@ jobs:
       - name: Install pipenv
         run: pip install pipenv torch
 
-      - name: Force CPU Mode (Disable CUDA)
-        run: |
-            export CUDA_VISIBLE_DEVICES=""
-            pipenv run python -c "import torch; print('Using device:', torch.device('cuda' if torch.cuda.is_available() else 'cpu'))"
-    
+
 
 
       - name: Install dependencies
         run: pipenv install --dev --python $(which python3)
+
+
+      - name: Force CPU Mode (Disable CUDA)
+        run: |
+         export CUDA_VISIBLE_DEVICES=""
+         pipenv run python -c "import torch; print('Using device:', torch.device('cuda' if torch.cuda.is_available() else 'cpu'))"
+
 
       - name: Run Black (code formatting check)
         run: pipenv run black --check .
