@@ -1,11 +1,13 @@
 import os
 import sys
 from fastapi.testclient import TestClient
+
 sys.path.append(os.getcwd())
 
 from main import app  # Import your FastAPI app
 
 client = TestClient(app)
+
 
 def test_read_root():
     response = client.get("/")

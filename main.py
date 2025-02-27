@@ -20,7 +20,7 @@ async def liefspan(app: FastAPI):
     text_m_obj.load_pipeline()
     ml_models["text_m_obj"] = text_m_obj
     print("loaded text_m_obj")
-    
+
     audio_m_obj = audioModel()
     audio_m_obj.load_audio_model()
     ml_models["audio_m_obj"] = audio_m_obj
@@ -36,6 +36,7 @@ app = FastAPI(lifespan=liefspan)
 @app.get("/")
 def home():
     return {"message": "Hello World"}
+
 
 @app.post("/get_student")
 def get_student(

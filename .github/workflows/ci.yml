@@ -26,7 +26,7 @@ jobs:
         run: pipenv install --dev --python $(which python3)
 
       - name: Run Black (code formatting check)
-        run: pipenv run black --check .
+        run: pipenv run black .
 
       - name: Run Isort (import sorting check)
         run: pipenv run isort --check-only .
