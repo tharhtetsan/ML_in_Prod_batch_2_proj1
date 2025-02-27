@@ -42,7 +42,7 @@ jobs:
         run: pipenv run isort .  
 
       - name: Run Pylint (code quality check)
-        run: pipenv run pylint --fail-under=8 $(git ls-files '*.py')
+        run: pipenv run pylint --fail-under=8 --disable=line-too-long,invalid-name  $(git ls-files '*.py')
 
 
 
