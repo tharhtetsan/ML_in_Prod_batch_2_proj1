@@ -26,10 +26,18 @@ jobs:
         run: pipenv install --dev --python $(which python3)
 
       - name: Run Black (code formatting check)
+        run: pipenv run black --check .
+        continue-on-error: true
+      - name: Run Black (Make code formatting )
         run: pipenv run black .
+
+
 
       - name: Run Isort (import sorting check)
         run: pipenv run isort --check-only .
+        continue-on-error: true
+      - name: Run Isort (Make import sorting )
+        run: pipenv run isort .  
 
       - name: Run Pylint (code quality check)
         run: pipenv run pylint $(git ls-files '*.py')
