@@ -13,6 +13,7 @@ soundfile = "*"
 transformers = "==4.42.4"
 openai = "*"
 accelerate = "*"
+pytest = "*"
 
 [dev-packages]
 ipykernel = "*"

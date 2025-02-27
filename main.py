@@ -35,8 +35,7 @@ app = FastAPI(lifespan=liefspan)
 
 @app.get("/")
 def home():
-    return "hello world"
-
+    return {"message": "Hello World"}
 
 @app.post("/get_student")
 def get_student(

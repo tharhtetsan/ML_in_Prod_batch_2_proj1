@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'  # Adjust to your Python version
+
+      - name: Install pipenv
+        run: pip install pipenv
+
+      - name: Install dependencies
+        run: pipenv install --dev
+
+      - name: Run Black (code formatting check)
+        run: pipenv run black --check .
+
+      - name: Run Isort (import sorting check)
+        run: pipenv run isort --check-only .
+
+      - name: Run Pylint (code quality check)
+        run: pipenv run pylint $(git ls-files '*.py')
+
+      - name: Run Pytest
+        run: pipenv run pytest
