@@ -23,7 +23,7 @@ jobs:
         run: pip install pipenv
 
       - name: Install dependencies
-        run: pipenv install --dev
+        run: pipenv install --dev --python $(which python3)
 
       - name: Run Black (code formatting check)
         run: pipenv run black --check .
