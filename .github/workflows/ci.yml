@@ -19,14 +19,17 @@ jobs:
         with:
           python-version: '3.10'  # Adjust to your Python version
 
-      - name: Set environment variables to disable CUDA
-        run: |
-            export CUDA_VISIBLE_DEVICES=""
-            export USE_CPU_ONLY=1
 
 
       - name: Install pipenv
         run: pip install pipenv torch
+
+      - name: Force CPU Mode (Disable CUDA)
+        run: |
+            export CUDA_VISIBLE_DEVICES=""
+            pipenv run python -c "import torch; print('Using device:', torch.device('cuda' if torch.cuda.is_available() else 'cpu'))"
+    
+
 
       - name: Install dependencies
         run: pipenv install --dev --python $(which python3)
