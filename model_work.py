@@ -1,14 +1,11 @@
-from io import BytesIO
 from typing import Literal
-
 import numpy as np
 import torch
-from transformers import AutoModel, AutoProcessor, Pipeline, pipeline
-
+from transformers import AutoModel, AutoProcessor, pipeline
 import utils
 
 
-class textModel:
+class text_Model:
     def __init__(self):
         self.pipe = None
         self.device_name = None
@@ -18,6 +15,8 @@ class textModel:
             self.device_name = "cpu"
 
     def load_pipeline(self):
+        """ load_pipeline for missing-function-docstrin """
+
         self.pipe = pipeline(
             "text-generation",
             model="TinyLlama/TinyLlama-1.1B-Chat-v1.0",
@@ -27,6 +26,8 @@ class textModel:
         print("textModel is loaded ")
 
     def predict(self, user_message):
+        """ predict for missing-function-docstrin """
+        
         messages = [
             {
                 "role": "system",
@@ -54,7 +55,7 @@ class textModel:
         return result
 
 
-class audioModel:
+class audio_Model:
     VoicePresets = Literal["v2/en_speaker_1", "v2/en_speaker_9"]
 
     def __init__(self):
@@ -63,7 +64,7 @@ class audioModel:
         self.model = None
 
     def load_audio_model(self) -> tuple[AutoProcessor, AutoModel]:
-
+        """ load_audio_model for missing-function-docstrin """
         # Download the small bark processor which prepares input text prompt for the core model
         self.processor = AutoProcessor.from_pretrained("suno/bark-small")
 
@@ -72,14 +73,15 @@ class audioModel:
 
         print("audioModel is loaded ")
 
-    def generate_audio(self, prompt: str) -> tuple[np.array, int]:
-
+    def generate_audio(self, prompt: str, request_preset :str) -> tuple[np.array, int]:
+        """ generate_audio for missing-function-docstrin """
+        
         if self.processor is None or self.model is None:
             return
 
         # Preprocess text prompt with a speaker voice preset embedding and return a Pytorch tensor array of tokenized inputs using return_tensors="pt"
         inputs = self.processor(
-            text=[prompt], return_tensors="pt", voice_preset=self.preset
+            text=[prompt], return_tensors="pt", voice_preset=request_preset
         )
 
         # Generate an audio array that contains amplitude values of the synthesized audio signal over time.
