@@ -17,8 +17,6 @@ pytest = "*"
 
 [dev-packages]
 ipykernel = "*"
-tensorflow-macos = "*"
-tensorflow-metal = "*"
 black = "*"
 isort = "*"
 pylint = "*"
