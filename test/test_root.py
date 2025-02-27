@@ -14,8 +14,8 @@ def test_read_root():
     assert response.json() == {"message": "Hello World"}
 
 
-# Test get_student Endpoint
 def test_get_student():
+    """ Test get_student Endpoint """
     response = client.post("/get_student", json={
                                                 "class_name": "ML_in_Prod_1",
                                                 "stu_name": "Mg ba",
@@ -27,10 +27,8 @@ def test_get_student():
     assert response.json()["result"] == "OK"
 
 
-
-
-# Test Sync Prediction Endpoint
 def test_sync_prediction():
+    """ Test Sync Prediction Endpoint """
     response = client.post("/sync", params={"prompt": "test prompt"})
     assert response.status_code == 200
     assert "execution_time" in response.json()

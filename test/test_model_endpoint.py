@@ -14,25 +14,26 @@ async def client():
         yield ac
 
 
-# Test Async Prediction Endpoint
+
 @pytest.mark.asyncio
 async def test_async_prediction(client):
+    """ Test Async Prediction Endpoint """
     response = await client.post("/async")
     assert response.status_code == 200
     assert "execution_time" in response.json()
     assert response.json()["result"] == "OK"
 
-# Test Text Generation Endpoint
 @pytest.mark.asyncio
 async def test_text_gen(client):
+    """ Test Text Generation Endpoint """
     response = await client.post("/text_gen", json={"prompt": "Generate text"})
     assert response.status_code == 200
     assert "execution_time" in response.json()
     assert isinstance(response.json()["result"], str)
 
-# Test Audio Generation Endpoint
 @pytest.mark.asyncio
 async def test_audio_gen(client):
+    """ Test Audio Generation Endpoint """
     response = await client.get("/audio_gen", params={"prompt": "Test audio"})
     assert response.status_code == 200
     assert response.headers["content-type"] == "audio/wav"
