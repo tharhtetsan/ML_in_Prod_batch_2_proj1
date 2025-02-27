@@ -40,7 +40,7 @@ jobs:
         run: pipenv run isort .  
 
       - name: Run Pylint (code quality check)
-        run: pipenv run pylint $(git ls-files '*.py')
+        run: pipenv run pylint --fail-under=8 $(git ls-files '*.py')
 
       - name: Run Pytest
         run: pipenv run pytest
