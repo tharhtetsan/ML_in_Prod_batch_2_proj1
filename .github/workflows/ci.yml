@@ -21,30 +21,15 @@ jobs:
         with:
           python-version: '3.10'  # Adjust to your Python version
 
-
-
-      - name: Install dependencies
-        run: |
-            apt-get update && apt-get install -y python3-pip
-            pip install pipenv
-
-
       - name: Install dependencies
         run: pipenv install --dev --python $(which python3)
 
-
-      - name: Force CPU Mode (Disable CUDA)
-        run: |
-         export CUDA_VISIBLE_DEVICES=""
-         pipenv run python -c "import torch; print('Using device:', torch.device('cuda' if torch.cuda.is_available() else 'cpu'))"
-
-
+        
       - name: Run Black (code formatting check)
         run: pipenv run black --check .
         continue-on-error: true
       - name: Run Black (Make code formatting )
         run: pipenv run black .
-
 
 
       - name: Run Isort (import sorting check)
