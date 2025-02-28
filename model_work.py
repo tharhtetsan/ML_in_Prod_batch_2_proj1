@@ -1,7 +1,9 @@
 from typing import Literal
+
 import numpy as np
 import torch
 from transformers import AutoModel, AutoProcessor, pipeline
+
 import utils
 
 
@@ -15,7 +17,7 @@ class text_Model:
             self.device_name = "cpu"
 
     def load_pipeline(self):
-        """ load_pipeline for missing-function-docstrin """
+        """load_pipeline for missing-function-docstrin"""
 
         self.pipe = pipeline(
             "text-generation",
@@ -26,8 +28,8 @@ class text_Model:
         print("textModel is loaded ")
 
     def predict(self, user_message):
-        """ predict for missing-function-docstrin """
-        
+        """predict for missing-function-docstrin"""
+
         messages = [
             {
                 "role": "system",
@@ -64,7 +66,7 @@ class audio_Model:
         self.model = None
 
     def load_audio_model(self) -> tuple[AutoProcessor, AutoModel]:
-        """ load_audio_model for missing-function-docstrin """
+        """load_audio_model for missing-function-docstrin"""
         # Download the small bark processor which prepares input text prompt for the core model
         self.processor = AutoProcessor.from_pretrained("suno/bark-small")
 
@@ -73,9 +75,9 @@ class audio_Model:
 
         print("audioModel is loaded ")
 
-    def generate_audio(self, prompt: str, request_preset :str) -> tuple[np.array, int]:
-        """ generate_audio for missing-function-docstrin """
-        
+    def generate_audio(self, prompt: str, request_preset: str) -> tuple[np.array, int]:
+        """generate_audio for missing-function-docstrin"""
+
         if self.processor is None or self.model is None:
             return
 

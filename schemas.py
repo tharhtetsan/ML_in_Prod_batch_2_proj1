@@ -4,7 +4,8 @@ from pydantic import BaseModel, Field
 
 
 class studentRequestModel(BaseModel):
-    """ for missing-module-docstring """
+    """for missing-module-docstring"""
+
     class_name: Literal["ML_in_Prod_1", "ML_in_Prod_2", "Big_Data"]
 
     stu_name: str = "Mg ba"
@@ -18,11 +19,13 @@ class studentRequestModel(BaseModel):
 
 
 class textRequestModel(BaseModel):
-    """ for missing-module-docstring """
+    """for missing-module-docstring"""
+
     prompt: str = "What is deep learning"
 
 
 class textResponseModel(BaseModel):
-    """ for missing-module-docstring """
+    """for missing-module-docstring"""
+
     execution_time: int = 0
     result: str = ""

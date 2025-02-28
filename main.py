@@ -14,7 +14,6 @@ ml_models = {}
 
 @asynccontextmanager
 async def liefspan(app: FastAPI):
-    """ Load models in this method """
 
     print("[+] Start Loading models..... [+]")
 
@@ -37,13 +36,13 @@ app = FastAPI(lifespan=liefspan)
 
 @app.get("/")
 def home():
-    """ Home method """
+    """Home method"""
     return {"message": "Hello World"}
 
 
 @app.post("/get_student")
-def get_student( body: studentRequestModel = Body(...)) -> textResponseModel:
-    """ get method to get student data """
+def get_student(body: studentRequestModel = Body(...)) -> textResponseModel:
+    """get method to get student data"""
 
     start_time = time.time()
     print(body)
@@ -55,11 +54,11 @@ def get_student( body: studentRequestModel = Body(...)) -> textResponseModel:
 
 @app.post("/sync")
 def sync_prediction(prompt: str) -> textResponseModel:
-    """ post method to test sync method """
+    """post method to test sync method"""
 
     start_time = time.time()
     time.sleep(5)
-    print("prompt : ",prompt)
+    print("prompt : ", prompt)
     result = "OK"
     return textResponseModel(
         execution_time=int(time.time() - start_time), result=result
@@ -68,7 +67,7 @@ def sync_prediction(prompt: str) -> textResponseModel:
 
 @app.post("/async")
 async def async_prediction() -> textResponseModel:
-    """ post method to test async method """
+    """post method to test async method"""
 
     start_time = time.time()
     await asyncio.sleep(5)
@@ -80,10 +79,8 @@ async def async_prediction() -> textResponseModel:
 
 
 @app.post("/text_gen")
-def serve_text_gen(body: textRequestModel = Body(...)
-) -> textResponseModel:
-    
-    """ post method for text_gen """
+def serve_text_gen(body: textRequestModel = Body(...)) -> textResponseModel:
+    """post method for text_gen"""
     start_time = time.time()
     generated_text = ml_models["text_m_obj"].predict(user_message=body.prompt)
 
@@ -98,10 +95,11 @@ def serve_text_gen(body: textRequestModel = Body(...)
     response_class=StreamingResponse,
 )
 async def serve_audio_gen(
-    prompt=Query(...), prest: audio_Model.VoicePresets = Query(default="v2/en_speaker_9")
+    prompt=Query(...),
+    prest: audio_Model.VoicePresets = Query(default="v2/en_speaker_9"),
 ) -> StreamingResponse:
-    """ async post method for audio_gen """
-    output_audio_array = ml_models["audio_m_obj"].generate_audio(prompt,prest)
+    """async post method for audio_gen"""
+    output_audio_array = ml_models["audio_m_obj"].generate_audio(prompt, prest)
 
     return StreamingResponse(
         output_audio_array,

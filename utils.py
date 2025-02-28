@@ -1,6 +1,8 @@
 from io import BytesIO
+
 import numpy as np
 import soundfile
+
 
 def audio_array_to_buffer(audio_array: np.array, sample_rate: int) -> BytesIO:
     """Convert audio array to Byte Buffer"""
