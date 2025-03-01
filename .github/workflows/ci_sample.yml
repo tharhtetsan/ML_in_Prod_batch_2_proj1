@@ -1,0 +1,30 @@
+name: Code check
+
+
+on:
+    push:
+      branches:
+        - stg
+
+  
+  jobs:
+    test:
+      runs-on: ubuntu-latest
+  
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+  
+        - name: Set up Python
+          uses: actions/setup-python@v4
+          with:
+            python-version: '3.10'  # Adjust to your Python version
+        
+        - name: Install pipenv
+          run:  pip install pipenv
+
+        - name: Install dev libs
+          run: pipenv install --dev --python $(which python)
+
+
+
