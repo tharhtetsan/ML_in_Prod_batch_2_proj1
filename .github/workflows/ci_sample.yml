@@ -39,5 +39,5 @@ jobs:
               run: docker build -t test_run .
 
             - name: Run Unit Test
-              run: docker run -rm test_run pytest
+              run: docker run --rm test_run pytest
 

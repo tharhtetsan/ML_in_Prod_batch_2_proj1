@@ -1,9 +1,7 @@
 FROM python:3.10.14
 
 
-
 EXPOSE $PORT
-
 
 WORKDIR /app
 COPY . .
