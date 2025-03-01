@@ -35,15 +35,13 @@ app = FastAPI(lifespan=liefspan)
 
 @app.get("/")
 def home():
-    """ home dir """
-    return {"message" : "Hello World"}
+    """home dir"""
+    return {"message": "Hello World"}
 
 
 @app.post("/get_student")
-def get_student(
-   body: studentRequestModel = Body(...)
-) -> textResponseModel:
-    """ get student data """
+def get_student(body: studentRequestModel = Body(...)) -> textResponseModel:
+    """get student data"""
     start_time = time.time()
     result = "OK"
     print(body)
@@ -54,10 +52,10 @@ def get_student(
 
 @app.post("/sync")
 def sync_prediction(prompt: str) -> textResponseModel:
-    """ test sync data """
+    """test sync data"""
     start_time = time.time()
     time.sleep(5)
-    print("prompt : ",prompt)
+    print("prompt : ", prompt)
     result = "OK"
     return textResponseModel(
         execution_time=int(time.time() - start_time), result=result
@@ -66,7 +64,7 @@ def sync_prediction(prompt: str) -> textResponseModel:
 
 @app.post("/async")
 async def async_prediction() -> textResponseModel:
-    """ test async data """
+    """test async data"""
     start_time = time.time()
     await asyncio.sleep(5)
 
@@ -77,9 +75,8 @@ async def async_prediction() -> textResponseModel:
 
 
 @app.post("/text_gen")
-def serve_text_gen(body: textRequestModel = Body(...)
-) -> textResponseModel:
-    """ test  text_gen data """
+def serve_text_gen(body: textRequestModel = Body(...)) -> textResponseModel:
+    """test  text_gen data"""
     start_time = time.time()
     generated_text = ml_models["text_m_obj"].predict(user_message=body.prompt)
 
@@ -96,8 +93,8 @@ def serve_text_gen(body: textRequestModel = Body(...)
 async def serve_audio_gen(
     prompt=Query(...), prest: audioModel.VoicePresets = Query(default="v2/en_speaker_9")
 ) -> StreamingResponse:
-    """ test  audio_gen data """
-    output_audio_array = ml_models["audio_m_obj"].generate_audio(prest,prompt)
+    """test  audio_gen data"""
+    output_audio_array = ml_models["audio_m_obj"].generate_audio(prest, prompt)
 
     return StreamingResponse(
         output_audio_array,

@@ -9,7 +9,7 @@ from main import app
 
 client = TestClient(app)
 
+
 def test_read_root():
-    """ For health check"""
+    """For health check"""
     response = client.get("/")
-    

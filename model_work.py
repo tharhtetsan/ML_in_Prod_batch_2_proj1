@@ -71,15 +71,13 @@ class audioModel:
 
         print("audioModel is loaded ")
 
-    def generate_audio(self,preset: str,prompt: str) -> tuple[np.array, int]:
+    def generate_audio(self, preset: str, prompt: str) -> tuple[np.array, int]:
 
         if self.processor is None or self.model is None:
             return
 
         # Preprocess text prompt with a speaker voice preset embedding and return a Pytorch tensor array of tokenized inputs using return_tensors="pt"
-        inputs = self.processor(
-            text=[prompt], return_tensors="pt", voice_preset=preset
-        )
+        inputs = self.processor(text=[prompt], return_tensors="pt", voice_preset=preset)
 
         # Generate an audio array that contains amplitude values of the synthesized audio signal over time.
         output = self.model.generate(**inputs, do_sample=True).cpu().numpy().squeeze()
