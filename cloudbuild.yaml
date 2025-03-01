@@ -1,0 +1,27 @@
+
+steps:
+
+# Build the container image
+  - name: gcr.io/cloud-builders/docker
+    args: ["build" , "-t","$_AR_HOSTNAME/$_PROJECT_ID/cloud-run-source-deploy/$_SERVICE_NAME:$_SERVER", ".", "-f","Dockerfile", "--cache-from", "$_AR_HOSTNAME/$_PROJECT_ID/cloud-run-source-deploy/$_SERVICE_NAME:$_SERVER"]
+    id: Build
+
+
+# Push image to AR
+  - name: gcr.io/cloud-builders/docker
+    args: ['push',"$_AR_HOSTNAME/$_PROJECT_ID/cloud-run-source-deploy/$_SERVICE_NAME:$_SERVER"]
+    id: Push
+
+
+# Deploy container image to CloudRun
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    entrypoint : gcloud
+    args: ['run','services','update','$_SERVICE_ENGPOINT','--platform=managed','--image',"$_AR_HOSTNAME/$_PROJECT_ID/cloud-run-source-deploy/$_SERVICE_NAME:$_SERVER", '--region','us-central1']
+    id: Deploy
+
+images:
+  - "$_AR_HOSTNAME/$_PROJECT_ID/cloud-run-source-deploy/$_SERVICE_NAME:$_SERVER"
+options:
+  substitutionOption: ALLOW_LOOSE
+  logging: CLOUD_LOGGING_ONLY
+  
