@@ -26,5 +26,12 @@ jobs:
             - name: Install dev libs
               run: pipenv install --dev --python $(which python)
 
-
+            - name: Run Black for code formatting 
+              run: pipenv run black .
+            
+            - name: Run import sorting
+              run: pipenv run isort .
+              
+            - name: Code quality check
+              run: pipenv run pylint --fail-under=8 --disable=line-too-long,invalid-name $(git ls-files '*.py')
 
